@@ -2,10 +2,11 @@
 
 import React from "react";
 
-const Table = ({ data, columns }) => {
+const Table = ({ /* data, columns  */}) => {
   return (
     <div>
-      <table>
+      table
+      {/* <table>
         <thead>
           {columns.map((column) => {
             <th key={column.key}>{column.label}</th>;
@@ -30,7 +31,7 @@ const Table = ({ data, columns }) => {
             ))
           )}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };
