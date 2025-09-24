@@ -1,37 +1,6 @@
+import { StoreType } from "@/types/store";
 import { create } from "zustand";
 
-interface PageType {
-  id: number;
-  title: string;
-  active: boolean;
-  updatedAt: string;
-  publishedAt: string;
-}
-
-interface ProductsType {
-  id: number;
-  name: string;
-  options: {
-    size: string;
-    amount: number;
-  };
-  active: boolean;
-  createdAt: string;
-}
-
-interface PricePlanType {
-  id: number;
-  description: string;
-  active: boolean;
-  createdAt: string;
-  removedAt: string;
-}
-
-interface StoreType {
-  pages: PageType[];
-  products: ProductsType[];
-  pricePlans: PricePlanType[];
-}
 
 export const useStore = create<StoreType>((set) => ({
   pages: [
