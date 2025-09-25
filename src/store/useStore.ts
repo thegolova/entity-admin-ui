@@ -54,4 +54,14 @@ export const useStore = create<StoreType>((set) => ({
     set((state) => ({
       pages: state.pages.map((p) => (p.id === updated.id ? updated : p)),
     })),
+  updateProduct: (updated) =>
+    set((state) => ({
+      products: state.products.map((p) => (p.id === updated.id ? updated : p)),
+    })),
+  updatePricePlans: (updated) =>
+    set((state) => ({
+      pricePlans: state.pricePlans.map((p) =>
+        p.id === updated.id ? updated : p
+      ),
+    })),
 }));

@@ -6,8 +6,7 @@ import { useStore } from "@/store/useStore";
 import { PageType } from "@/types/entities";
 
 const PagesPage = () => {
-  const pages = useStore((state) => state.pages);
-  const updatePage = useStore((state) => state.updatePage);
+  const { pages, updatePage } = useStore();
 
   const columns = [
     { key: "id", label: "ID" },
@@ -20,8 +19,7 @@ const PagesPage = () => {
     {
       key: "updatedAt",
       label: "Updated At",
-      render: (item: PageType) =>
-        new Date(item.updatedAt).toLocaleDateString(),
+      render: (item: PageType) => new Date(item.updatedAt).toLocaleDateString(),
     },
     {
       key: "publishedAt",

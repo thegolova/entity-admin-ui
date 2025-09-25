@@ -1,15 +1,14 @@
 "use client";
 
+import { productFields } from "@/features/config/fieldsConfig";
 import Table from "@/features/table/Table";
 import { useStore } from "@/store/useStore";
 import { ProductsType } from "@/types/entities";
 import React from "react";
 
 const ProductsPage = () => {
-  const { products } = useStore();
-
+  const { products, updateProduct } = useStore();
   console.log("products", products);
-
   const columns = [
     { key: "id", label: "ID" },
     { key: "name", label: "Name" },
@@ -38,7 +37,12 @@ const ProductsPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Products</h1>
-      <Table data={products} columns={columns} />
+      <Table
+        data={products}
+        columns={columns}
+        fields={productFields}
+        onSave={updateProduct}
+      />
     </div>
   );
 };

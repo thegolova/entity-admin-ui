@@ -6,3 +6,18 @@ export const pagesPageFields: FieldConfig[] = [
   { name: "updatedAt", label: "Updated At", type: "text" },
   { name: "publishedAt", label: "Published At", type: "text" },
 ];
+
+export const pricePlanFields: FieldConfig[] = [
+  { name: "description", label: "Description", type: "text" },
+  { name: "active", label: "Active", type: "checkbox" },
+  { name: "updatedAt", label: "Updated At", type: "text" },
+  { name: "publishedAt", label: "Published At", type: "text" },
+];
+
+export const productFields: FieldConfig[] = [
+  { name: "name", label: "Name", type: "text" },
+  { name: "size", label: "Size", type: "text" },
+  { name: "amount", label: "Amount", type: "number" },
+  { name: "active", label: "Active", type: "checkbox" },
+  { name: "createdAt", label: "Created At", type: "text" },
+];

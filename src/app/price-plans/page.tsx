@@ -1,12 +1,13 @@
 "use client";
 
+import { pricePlanFields } from "@/features/config/fieldsConfig";
 import Table from "@/features/table/Table";
 import { useStore } from "@/store/useStore";
 import { PricePlanType } from "@/types/entities";
 import React from "react";
 
 const PricePlansPage = () => {
-  const pricePlans = useStore((state) => state.pricePlans);
+  const { pricePlans, updatePricePlans } = useStore();
 
   const columns = [
     { key: "id", label: "ID" },
@@ -33,7 +34,12 @@ const PricePlansPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Price Plans</h1>
-      <Table data={pricePlans} columns={columns} />
+      <Table
+        data={pricePlans}
+        columns={columns}
+        fields={pricePlanFields}
+        onSave={updatePricePlans}
+      />
     </div>
   );
 };
