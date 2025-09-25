@@ -36,6 +36,11 @@ export function EditModal<T>({
 }: EditModalProps<T>) {
   const [form, setForm] = useState<any>(entity);
 
+  console.log({
+    fields,
+    entity,
+  });
+
   useEffect(() => {
     setForm(entity);
   }, [entity]);

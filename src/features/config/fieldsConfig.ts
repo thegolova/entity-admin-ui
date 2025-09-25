@@ -16,8 +16,8 @@ export const pricePlanFields: FieldConfig[] = [
 
 export const productFields: FieldConfig[] = [
   { name: "name", label: "Name", type: "text" },
-  { name: "size", label: "Size", type: "text" },
-  { name: "amount", label: "Amount", type: "number" },
+  { name: "options.size", label: "Size", type: "text" },
+  { name: "options.amount", label: "Amount", type: "number" },
   { name: "active", label: "Active", type: "checkbox" },
   { name: "createdAt", label: "Created At", type: "text" },
 ];
