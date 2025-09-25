@@ -15,14 +15,14 @@ const Sidebar = () => {
   const pathname = usePathname();
   return (
     <aside className="w-64">
-      <nav className="flex flex-col gap-4">
+      <nav className="flex flex-col gap-2">
         {menuItems.map((item) => (
           <Link
             key={item.id}
             href={item.href}
             className={clsx(
-              "rounded-lg transition-colors text-2xl px-4 py-1",
-              pathname === item.href ? "bg-blue-400 text-white" : "hover:bg-gray-200"
+              "rounded-lg transition-colors text-xl px-2 py-1",
+              pathname === item.href ? "bg-blue-500 text-white" : "hover:bg-gray-200"
             )}
           >
             {item.name}

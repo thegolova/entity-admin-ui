@@ -4,4 +4,5 @@ export interface StoreType {
   pages: PageType[];
   products: ProductsType[];
   pricePlans: PricePlanType[];
+  updatePage: (updated: PageType) => void;
 }

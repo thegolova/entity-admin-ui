@@ -1,22 +1,34 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
+import { EditModal } from "../modal/EditModal";
+import { FieldConfig } from "../modal/types";
 
 interface ColumnType<T> {
   key: keyof T | string;
   label: string;
-  extra?: (item: T) => ReactNode;
+  render?: (item: T) => ReactNode;
 }
 
 interface TableType<T> {
   data: T[];
   columns: ColumnType<T>[];
+  fields: FieldConfig[];
+  onSave: (entity: T) => void;
 }
 
 const Table = <T extends { id: number | string }>({
   data,
   columns,
+  fields,
+  onSave,
 }: TableType<T>) => {
+  const [entity, setEntity] = useState<T | null>(null);
+
+  const handleEdit = (entity: T) => () => {
+    setEntity(entity);
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full border border-gray-300">
@@ -30,12 +42,18 @@ const Table = <T extends { id: number | string }>({
                 {column.label}
               </th>
             ))}
+            <th className="px-4 py-2 text-left border-b border-gray-300" />
           </tr>
         </thead>
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td> no data </td>
+              <td
+                colSpan={columns.length + 1}
+                className="px-4 py-2 text-center"
+              >
+                No data
+              </td>
             </tr>
           ) : (
             data.map((item) => (
@@ -45,14 +63,38 @@ const Table = <T extends { id: number | string }>({
                     key={column.key as string}
                     className="px-4 py-2 border-b border-gray-200"
                   >
-                    {column.extra ? column.extra(item) : item[column.key]}
+                    {column.render
+                      ? column.render(item)
+                      : (item as any)[column.key]}
                   </td>
                 ))}
+                <td className="px-4 py-2 border-b border-gray-200">
+                  <button
+                    className="border border-blue-500
+                    text-sm text-blue-500
+                    px-2 py-1 rounded-md cursor-pointer
+                    hover:text-white hover:bg-blue-500"
+                    onClick={handleEdit(item)}
+                  >
+                    Edit
+                  </button>
+                </td>
               </tr>
             ))
           )}
         </tbody>
       </table>
+
+      <EditModal
+        isOpen={!!entity}
+        onClose={() => setEntity(null)}
+        entity={entity}
+        fields={fields}
+        onSave={(updated) => {
+          onSave(updated);
+          setEntity(null);
+        }}
+      />
     </div>
   );
 };

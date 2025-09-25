@@ -16,22 +16,22 @@ const ProductsPage = () => {
     {
       key: "size",
       label: "Size",
-      extra: (item: ProductsType) => item.options.size,
+      render: (item: ProductsType) => item.options.size,
     },
     {
       key: "amount",
       label: "Amount",
-      extra: (item: ProductsType) => item.options.amount,
+      render: (item: ProductsType) => item.options.amount,
     },
     {
       key: "active",
       label: "Active",
-      extra: (item: ProductsType) => (item.active ? "yes" : "no"),
+      render: (item: ProductsType) => (item.active ? "yes" : "no"),
     },
     {
       key: "createdAt",
       label: "Created At",
-      extra: (item: ProductsType) =>
+      render: (item: ProductsType) =>
         new Date(item.createdAt).toLocaleDateString(),
     },
   ];

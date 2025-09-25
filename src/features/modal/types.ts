@@ -1,0 +1,7 @@
+export type FieldType = "text" | "number" | "select" | "checkbox";
+
+export type FieldConfig = {
+  name: string;
+  label: string;
+  type: "text" | "number" | "checkbox";
+};

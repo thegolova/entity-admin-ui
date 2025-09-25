@@ -1,13 +1,12 @@
 import { StoreType } from "@/types/store";
 import { create } from "zustand";
 
-
 export const useStore = create<StoreType>((set) => ({
   pages: [
     {
       id: 23634610,
       title: "aliquip sit proident veniam tempor",
-      active: false,
+      active: true,
       updatedAt: "1948-04-09T10:15:44.0Z",
       publishedAt: "1956-09-25T20:13:19.0Z",
     },
@@ -51,4 +50,8 @@ export const useStore = create<StoreType>((set) => ({
       removedAt: "2006-06-14T18:43:22.0Z",
     },
   ],
+  updatePage: (updated) =>
+    set((state) => ({
+      pages: state.pages.map((p) => (p.id === updated.id ? updated : p)),
+    })),
 }));
