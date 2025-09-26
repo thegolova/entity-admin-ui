@@ -3,6 +3,7 @@
 import { Dialog } from "@headlessui/react";
 import { useState, useEffect } from "react";
 import { FieldConfig } from "./types";
+import { getValue } from "@/shared/utils";
 
 type EditModalProps<T> = {
   isOpen: boolean;
@@ -11,10 +12,6 @@ type EditModalProps<T> = {
   fields: FieldConfig[];
   onSave: (updated: T) => void;
 };
-
-function getValue(obj: any, path: string) {
-  return path.split(".").reduce((acc, key) => acc?.[key], obj);
-}
 
 function setValue(obj: any, path: string, value: any) {
   const keys = path.split(".");
