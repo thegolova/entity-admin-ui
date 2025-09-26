@@ -2,16 +2,10 @@
 
 import { Dialog } from "@headlessui/react";
 import { useState, useEffect } from "react";
-import { FieldConfig } from "./types";
+import { EditModalProps } from "./types";
 import { getValue } from "@/shared/utils";
 
-type EditModalProps<T> = {
-  isOpen: boolean;
-  onClose: () => void;
-  entity: T | null;
-  fields: FieldConfig[];
-  onSave: (updated: T) => void;
-};
+
 
 function setValue(obj: any, path: string, value: any) {
   const keys = path.split(".");
@@ -43,9 +37,9 @@ export function EditModal<T>({
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="mx-auto max-w-md w-full rounded bg-white p-6 shadow-lg">
-          <Dialog.Title className="text-lg font-bold mb-4">
-            Edit Entity
+        <Dialog.Panel className="mx-auto max-w-md w-full rounded-md bg-white p-6 shadow-lg">
+          <Dialog.Title className="text-2xl font-bold mb-4">
+            Edit
           </Dialog.Title>
 
           <form
@@ -58,7 +52,7 @@ export function EditModal<T>({
           >
             {fields.map((f) => (
               <div key={f.name} className="flex flex-col gap-1">
-                <label className="text-sm font-medium">{f.label}</label>
+                <label className="text-base font-medium">{f.label}</label>
                 {f.type === "checkbox" ? (
                   <input
                     type="checkbox"
@@ -66,6 +60,7 @@ export function EditModal<T>({
                     onChange={(e) =>
                       setForm(setValue(form, f.name, e.target.checked))
                     }
+                    className="bg-red-200"
                   />
                 ) : (
                   <input
@@ -74,7 +69,7 @@ export function EditModal<T>({
                     onChange={(e) =>
                       setForm(setValue(form, f.name, e.target.value))
                     }
-                    className="border rounded px-2 py-1 text-sm"
+                    className="border-2 border-gray-300 hover:border-blue-500 rounded px-2 py-1 text-sm"
                   />
                 )}
               </div>

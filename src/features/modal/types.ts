@@ -5,3 +5,11 @@ export type FieldConfig = {
   label: string;
   type: "text" | "number" | "checkbox";
 };
+
+export type EditModalProps<T> = {
+  isOpen: boolean;
+  onClose: () => void;
+  entity: T | null;
+  fields: FieldConfig[];
+  onSave: (updated: T) => void;
+};
