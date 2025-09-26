@@ -20,16 +20,16 @@ export function applyFilters<T>(
         }
         case "number": {
           if (value == null) return true;
-          const from = filters[`${column.key}.from`];
-          const to = filters[`${column.key}.to`];
+          const from = filters[`${column.key as string}.from`];
+          const to = filters[`${column.key as string}.to`];
           if (from && Number(value) < Number(from)) return false;
           if (to && Number(value) > Number(to)) return false;
           return true;
         }
         case "date": {
           if (!value) return true;
-          const fromDate = filters[`${column.key}.from`];
-          const toDate = filters[`${column.key}.to`];
+          const fromDate = filters[`${column.key as string}.from`];
+          const toDate = filters[`${column.key as string}.to`];
           const dateVal = new Date(value);
           if (fromDate && dateVal < new Date(fromDate)) return false;
           if (toDate && dateVal > new Date(toDate)) return false;

@@ -10,24 +10,27 @@ const PricePlansPage = () => {
   const { pricePlans, updatePricePlans } = useStore();
 
   const columns = [
-    { key: "id", label: "ID" },
-    { key: "description", label: "Description" },
+    { key: "id", label: "ID", type: "number" },
+    { key: "description", label: "Description", type: "string" },
     {
       key: "active",
       label: "Active",
       render: (item: PricePlanType) => (item.active ? "yes" : "no"),
+      type: "boolean",
     },
     {
       key: "createdAt",
       label: "Created At",
       render: (item: PricePlanType) =>
         new Date(item.createdAt).toLocaleDateString(),
+      type: "date",
     },
     {
       key: "removedAt",
       label: "Removed At",
       render: (item: PricePlanType) =>
         item.removedAt ? new Date(item.removedAt).toLocaleDateString() : "—",
+      type: "date",
     },
   ];
 
