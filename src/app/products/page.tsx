@@ -2,38 +2,28 @@
 
 import { productFields } from "@/features/config/fieldsConfig";
 import Table from "@/features/table/Table";
+import { ColumnType } from "@/features/table/types";
 import { useStore } from "@/store/useStore";
 import { ProductsType } from "@/types/entities";
 import React from "react";
 
 const ProductsPage = () => {
   const { products, updateProduct } = useStore();
-  console.log("products", products);
-  const columns = [
-    { key: "id", label: "ID" },
-    { key: "name", label: "Name" },
+
+  const columns: ColumnType<ProductsType>[] = [
+    { key: "id", label: "ID", type: "number" },
+    { key: "name", label: "Name", type: "string" },
     {
-      key: "size",
+      key: "options.size",
       label: "Size",
-      render: (item: ProductsType) => item.options.size,
+      type: "enum",
+      enumValues: ["S", "M", "L", "XL"],
     },
-    {
-      key: "amount",
-      label: "Amount",
-      render: (item: ProductsType) => item.options.amount,
-    },
-    {
-      key: "active",
-      label: "Active",
-      render: (item: ProductsType) => (item.active ? "yes" : "no"),
-    },
-    {
-      key: "createdAt",
-      label: "Created At",
-      render: (item: ProductsType) =>
-        new Date(item.createdAt).toLocaleDateString(),
-    },
+    { key: "options.amount", label: "Amount", type: "number" },
+    { key: "active", label: "Active", type: "boolean" },
+    { key: "createdAt", label: "Created At", type: "date" },
   ];
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Products</h1>

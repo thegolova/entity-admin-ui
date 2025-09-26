@@ -1,23 +1,12 @@
 "use client";
 
-import React, { ReactNode, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { EditModal } from "../modal/EditModal";
-import { FieldConfig } from "../modal/types";
 import clsx from "clsx";
 import { getValue } from "@/shared/utils";
-
-interface ColumnType<T> {
-  key: keyof T | string;
-  label: string;
-  render?: (item: T) => ReactNode;
-}
-
-interface TableType<T> {
-  data: T[];
-  columns: ColumnType<T>[];
-  fields: FieldConfig[];
-  onSave: (entity: T) => void;
-}
+import { TableType } from "./types";
+import { applyFilters } from "../filters/applyFilters";
+import Filters from "../filters/Filters";
 
 const Table = <T extends { id: number | string }>({
   data,
@@ -31,11 +20,14 @@ const Table = <T extends { id: number | string }>({
     type: "asc" | "desc";
   } | null>(null);
 
-  console.log({
-    data,
-    sortData,
-  });
+  const [filters, setFilters] = useState<Record<string, any>>({});
 
+  const filteredData = useMemo(
+    () => applyFilters(data, filters, columns),
+    [data, filters, columns]
+  );
+  console.log("data", data);
+  console.log("filteredData", filteredData);
   const handleEdit = (entity: T) => () => {
     setEntity(entity);
   };
@@ -50,10 +42,10 @@ const Table = <T extends { id: number | string }>({
   };
 
   const sortedData = useMemo(() => {
-    if (!sortData) return data;
+    if (!sortData) return filteredData;
     const { key, type } = sortData;
 
-    return [...data].sort((a, b) => {
+    return [...filteredData].sort((a, b) => {
       const _a = getValue(a, key as string);
       const _b = getValue(b, key as string);
 
@@ -64,10 +56,11 @@ const Table = <T extends { id: number | string }>({
       if (_a > _b) return type === "asc" ? 1 : -1;
       return 0;
     });
-  }, [data, sortData]);
+  }, [filteredData, sortData]);
 
   return (
     <div className="overflow-x-auto">
+      <Filters columns={columns} filters={filters} onChange={setFilters} />
       <table className="min-w-full border border-gray-300">
         <thead className="bg-gray-100">
           <tr>
