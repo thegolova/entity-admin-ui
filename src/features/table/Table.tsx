@@ -26,8 +26,7 @@ const Table = <T extends { id: number | string }>({
     () => applyFilters(data, filters, columns),
     [data, filters, columns]
   );
-  console.log("data", data);
-  console.log("filteredData", filteredData);
+
   const handleEdit = (entity: T) => () => {
     setEntity(entity);
   };

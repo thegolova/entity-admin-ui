@@ -20,7 +20,12 @@ const ProductsPage = () => {
       enumValues: ["S", "M", "L", "XL"],
     },
     { key: "options.amount", label: "Amount", type: "number" },
-    { key: "active", label: "Active", type: "boolean" },
+    {
+      key: "active",
+      label: "Active",
+      render: (item: ProductsType) => (item.active ? "yes" : "no"),
+      type: "boolean",
+    },
     { key: "createdAt", label: "Created At", type: "date" },
   ];
 

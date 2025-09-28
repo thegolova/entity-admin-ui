@@ -1,9 +1,9 @@
-export type FieldType = "text" | "number" | "select" | "checkbox";
+export type FieldType = "text" | "number" | "select" | "checkbox" | "date";
 
 export type FieldConfig = {
   name: string;
   label: string;
-  type: "text" | "number" | "checkbox";
+  type: "text" | "number" | "checkbox" | "date";
 };
 
 export type EditModalProps<T> = {
