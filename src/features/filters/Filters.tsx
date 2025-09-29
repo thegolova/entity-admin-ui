@@ -80,9 +80,9 @@ const Filters = <T,>({ columns, filters, onChange }: FiltersProps<T>) => {
                   handleChange(column.key as string, e.target.value)
                 }
               >
-                <option value="">Любое</option>
-                <option value="true">Да</option>
-                <option value="false">Нет</option>
+                <option value="">Any</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </select>
             );
           case "enum":
@@ -95,7 +95,7 @@ const Filters = <T,>({ columns, filters, onChange }: FiltersProps<T>) => {
                   handleChange(column.key as string, e.target.value)
                 }
               >
-                <option value="">Все</option>
+                <option value="">All</option>
                 {column.enumValues?.map((val) => (
                   <option key={val} value={val}>
                     {val}

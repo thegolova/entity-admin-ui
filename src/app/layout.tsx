@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html>
+    <html lang="en">
       <body className="p-6">
         <main className="h-full flex rounded-xl overflow-hidden drop-shadow-[0px_0px_6px__rgba(0,0,0,0.4)] bg-white">
           <div className="flex flex-col p-4 border-r-2 border-gray-300">
