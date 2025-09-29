@@ -23,7 +23,7 @@ export const useStore = create<StoreType>((set) => ({
       id: 14381328,
       name: "id quis voluptate nostrud",
       options: { size: "XL", amount: 100 },
-      active: true,
+      active: false,
       createdAt: "1985-08-09T02:10:18.0Z",
     },
     {

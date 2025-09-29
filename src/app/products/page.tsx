@@ -23,7 +23,7 @@ const ProductsPage = () => {
     {
       key: "active",
       label: "Active",
-      render: (item: ProductsType) => (item.active ? "yes" : "no"),
+      render: (item: ProductsType) => item.active,
       type: "boolean",
     },
     { key: "createdAt", label: "Created At", type: "date" },

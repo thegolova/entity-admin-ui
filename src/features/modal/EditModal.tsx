@@ -6,8 +6,6 @@ import { EditModalProps } from "./types";
 import { getValue, setValue } from "@/shared/utils";
 import { fromDateInputValue, toDateInputValue } from "@/shared/utils/date";
 
-
-
 export function EditModal<T>({
   isOpen,
   onClose,
@@ -40,22 +38,24 @@ export function EditModal<T>({
           >
             {fields.map((f) => {
               if (f.type === "checkbox") {
-                <div key={f.name} className="flex flex-col gap-1">
-                  <div className="flex justify-between items-center">
-                    <label className="text-base font-medium py-2">
-                      {f.label}
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      checked={Boolean(getValue(form, f.name))}
-                      onChange={(e) =>
-                        setForm(setValue(form, f.name, e.target.checked))
-                      }
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1"
-                    />
+                const raw = getValue(form, f.name);
+                return (
+                  <div key={f.name} className="flex flex-col gap-1">
+                    <div className="flex justify-between items-center">
+                      <label className="text-base font-medium py-2">
+                        {f.label}
+                      </label>
+                      <input
+                        type="checkbox"
+                        checked={raw}
+                        onChange={(e) =>
+                          setForm(setValue(form, f.name, e.target.checked))
+                        }
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1"
+                      />
+                    </div>
                   </div>
-                </div>;
+                );
               }
               if (f.type === "date") {
                 const raw = getValue(form, f.name) as string | undefined;
@@ -81,13 +81,15 @@ export function EditModal<T>({
                   </div>
                 );
               }
+
+              const raw = String(getValue(form, f.name) ?? "");
               return (
                 <div key={f.name} className="flex flex-col gap-1">
                   <div className="flex justify-between items-center">
                     <label className="text-base font-medium">{f.label}</label>
                     <input
                       type={f.type}
-                      value={String(getValue(form, f.name) ?? "")}
+                      value={raw}
                       onChange={(e) =>
                         setForm(setValue(form, f.name, e.target.value))
                       }
