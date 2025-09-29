@@ -23,10 +23,16 @@ const ProductsPage = () => {
     {
       key: "active",
       label: "Active",
-      render: (item: ProductsType) => item.active,
+      render: (item: ProductsType) => (item.active ? "yes" : "no"),
       type: "boolean",
     },
-    { key: "createdAt", label: "Created At", type: "date" },
+    {
+      key: "createdAt",
+      label: "Created At",
+      render: (item: ProductsType) =>
+        new Date(item.createdAt).toLocaleDateString(),
+      type: "date",
+    },
   ];
 
   return (

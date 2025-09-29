@@ -14,7 +14,7 @@ const PagesPage = () => {
     {
       key: "active",
       label: "Active",
-      render: (item: PageType) => (item.active ? "yes" : "no"),
+      render: (item: PageType) => item.active ? "yes" : "no",
       type: "boolean",
     },
     {

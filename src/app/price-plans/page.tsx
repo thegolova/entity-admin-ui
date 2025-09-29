@@ -15,7 +15,7 @@ const PricePlansPage = () => {
     {
       key: "active",
       label: "Active",
-      render: (item: PricePlanType) => (item.active ? "yes" : "no"),
+      render: (item: PricePlanType) => item.active ? "yes" : "no",
       type: "boolean",
     },
     {
