@@ -187,19 +187,21 @@ const Filters = <T,>({ columns, filters, onChange }: FiltersProps<T>) => {
         })}
       </div>
 
-      <div className="my-2">
-        <button
-          type="button"
-          onClick={resetAllFilters}
-          disabled={!hasActiveFilters}
-          className="text-sm px-3 py-1 rounded-md border border-gray-300
+      <div className="flex flex-col">
+        <div className="my-2 self-end">
+          <button
+            type="button"
+            onClick={resetAllFilters}
+            disabled={!hasActiveFilters}
+            className="text-sm px-3 py-1 rounded-md border border-gray-300
             hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed ml-auto"
-        >
-          Reset All Filters
-        </button>
+          >
+            Reset All Filters
+          </button>
+        </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Filters;

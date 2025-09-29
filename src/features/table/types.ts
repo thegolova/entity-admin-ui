@@ -12,6 +12,6 @@ export interface ColumnType<T> {
 export interface TableType<T> {
   data: T[];
   columns: ColumnType<T>[];
-  fields: FieldConfig[];
+  fields: FieldConfig<T>[]; // ⬅️ было без <T>
   onSave: (entity: T) => void;
 }

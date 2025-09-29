@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { EditModalProps } from "./types";
 import { getValue, setValue } from "@/shared/utils";
 import { fromDateInputValue, toDateInputValue } from "@/shared/utils/date";
+import clsx from "clsx";
 
 export function EditModal<T>({
   isOpen,
@@ -14,12 +15,19 @@ export function EditModal<T>({
   onSave,
 }: EditModalProps<T>) {
   const [form, setForm] = useState<any>(entity);
-  console.log({ entity, fields });
   useEffect(() => {
     setForm(entity);
   }, [entity]);
 
-  if (!isOpen || !entity) return null;
+  if (!isOpen || !entity || !form) return null;
+
+  const isDisabled = (f: any) => {
+    const rule = (f as any)?.disabled;
+    if (typeof rule === "boolean") return rule;
+    if (typeof rule === "function")
+      return !!rule({ form: form as T, entity: entity as T });
+    return false;
+  };
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
@@ -37,6 +45,8 @@ export function EditModal<T>({
             }}
           >
             {fields.map((f) => {
+              const disabled = isDisabled(f);
+
               if (f.type === "checkbox") {
                 const raw = getValue(form, f.name);
                 return (
@@ -51,7 +61,12 @@ export function EditModal<T>({
                         onChange={(e) =>
                           setForm(setValue(form, f.name, e.target.checked))
                         }
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1"
+                        className={clsx(
+                          "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1",
+                          disabled &&
+                            "bg-gray-300 hover:border-gray-300 cursor-not-allowed"
+                        )}
+                        disabled={disabled}
                       />
                     </div>
                   </div>
@@ -75,7 +90,12 @@ export function EditModal<T>({
                             )
                           )
                         }
-                        className="border-2 border-gray-300 hover:border-blue-500 rounded px-2 py-1 text-sm"
+                        className={clsx(
+                          "border-2 border-gray-300 hover:border-blue-500 rounded px-2 py-1 text-sm",
+                          disabled &&
+                            "bg-gray-300 hover:border-gray-300 cursor-not-allowed"
+                        )}
+                        disabled={disabled}
                       />
                     </div>
                   </div>
@@ -93,45 +113,17 @@ export function EditModal<T>({
                       onChange={(e) =>
                         setForm(setValue(form, f.name, e.target.value))
                       }
-                      className="border-2 border-gray-300 hover:border-blue-500 rounded px-2 py-1 text-sm"
+                      className={clsx(
+                        "border-2 border-gray-300 hover:border-blue-500 rounded px-2 py-1 text-sm",
+                        disabled &&
+                          "bg-gray-300 hover:border-gray-300 cursor-not-allowed"
+                      )}
+                      disabled={disabled}
                     />
                   </div>
                 </div>
               );
             })}
-
-            {/* 
-<div key={f.name} className="flex flex-col gap-1">
-                {f.type === "checkbox" ? (
-                  <div className="flex justify-between items-center">
-                    <label className="text-base font-medium py-2">
-                      {f.label}
-                    </label>
-
-                    <input
-                      type="checkbox"
-                      checked={Boolean(getValue(form, f.name))}
-                      onChange={(e) =>
-                        setForm(setValue(form, f.name, e.target.checked))
-                      }
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex justify-between items-center">
-                    <label className="text-base font-medium">{f.label}</label>
-                    <input
-                      type={f.type}
-                      value={String(getValue(form, f.name) ?? "")}
-                      onChange={(e) =>
-                        setForm(setValue(form, f.name, e.target.value))
-                      }
-                      className="border-2 border-gray-300 hover:border-blue-500 rounded px-2 py-1 text-sm"
-                    />
-                  </div>
-                )}
-              </div> */}
-
             <div className="flex justify-end gap-2 pt-4">
               <button
                 type="button"
