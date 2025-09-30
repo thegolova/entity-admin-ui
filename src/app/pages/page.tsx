@@ -2,35 +2,41 @@
 
 import { pagesPageFields } from "@/features/config/fieldsConfig";
 import Table from "@/features/table/Table";
+import { ColumnType } from "@/features/table/types";
 import { useStore } from "@/store/useStore";
 import { PageType } from "@/types/entities";
+import { useMemo } from "react";
 
 const PagesPage = () => {
   const { pages, updatePage } = useStore();
 
-  const columns = [
-    { key: "id", label: "ID", type: "number" },
-    { key: "title", label: "Title", type: "string" },
-    {
-      key: "active",
-      label: "Active",
-      render: (item: PageType) => item.active ? "yes" : "no",
-      type: "boolean",
-    },
-    {
-      key: "updatedAt",
-      label: "Updated At",
-      render: (item: PageType) => new Date(item.updatedAt).toLocaleDateString(),
-      type: "date",
-    },
-    {
-      key: "publishedAt",
-      label: "Published At",
-      render: (item: PageType) =>
-        new Date(item.publishedAt).toLocaleDateString(),
-      type: "date",
-    },
-  ];
+  const columns = useMemo<ColumnType<PageType>[]>(
+    () => [
+      { key: "id", label: "ID", type: "number" },
+      { key: "title", label: "Title", type: "string" },
+      {
+        key: "active",
+        label: "Active",
+        render: (item: PageType) => (item.active ? "yes" : "no"),
+        type: "boolean",
+      },
+      {
+        key: "updatedAt",
+        label: "Updated At",
+        render: (item: PageType) =>
+          new Date(item.updatedAt).toLocaleDateString(),
+        type: "date",
+      },
+      {
+        key: "publishedAt",
+        label: "Published At",
+        render: (item: PageType) =>
+          new Date(item.publishedAt).toLocaleDateString(),
+        type: "date",
+      },
+    ],
+    []
+  );
 
   return (
     <div className="p-6">
